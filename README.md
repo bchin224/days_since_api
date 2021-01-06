@@ -1,5 +1,6 @@
 ### Planning Story
-1/6 -
+1/6 - Set up github repository
+    - Renamed database name to days-since-database
 
 ### Entity Relationship Diagram
 ```md
