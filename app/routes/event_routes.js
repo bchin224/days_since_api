@@ -35,6 +35,15 @@ router.get('/events', requireToken, (req, res, next) => {
     .catch(next)
 })
 
+// SHOW
+// GET /events/:id
+router.get('events/:id', requireToken, removeBlanks, (req, res, next) => {
+  Event.findById(req.params.id)
+    .then(handle404)
+    .then(event => res.status(200).json({ event: event.toObject() }))
+    .catch(next)
+})
+
 // CREATE
 // POST /events
 router.post('/events', requireToken, removeBlanks, (req, res, next) => {
@@ -45,6 +54,29 @@ router.post('/events', requireToken, removeBlanks, (req, res, next) => {
     .then(event => {
       res.status(201).json({ event: event.toObject() })
     })
+    .catch(next)
+})
+
+// UPDATE
+// PATCH /events/:id
+router.patch('/events/:id', requireToken, removeBlanks, (req, res, next) => {
+  // if the client attempts to change the `owner` property by including a new
+  // owner, prevent that by deleting that key/value pair
+  delete req.body.event.owner
+
+  Event.findById(req.params.id)
+    .then(handle404)
+    .then(event => {
+      // pass the `req` object and the Mongoose record to `requireOwnership`
+      // it will throw an error if the current user isn't the owner
+      requireOwnership(req, event)
+
+      // pass the result of Mongoose's `.update` to the next `.then`
+      return event.updateOne(req.body.event)
+    })
+    // if that succeeded, return 204 and no JSON
+    .then(() => res.sendStatus(204))
+    // if an error occurs, pass it to the handler
     .catch(next)
 })
 
