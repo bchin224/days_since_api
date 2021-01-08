@@ -27,7 +27,9 @@ const router = express.Router()
 // INDEX
 // GET /events
 router.get('/events', requireToken, (req, res, next) => {
-  Event.find()
+  const ownerId = req.user._id
+  console.log(ownerId)
+  Event.find({ owner: ownerId })
     .then(events => {
       return events.map(event => event.toObject())
     })
@@ -38,7 +40,8 @@ router.get('/events', requireToken, (req, res, next) => {
 // SHOW
 // GET /events/:id
 router.get('events/:id', requireToken, removeBlanks, (req, res, next) => {
-  Event.findById(req.params.id)
+  const id = req.params.id
+  Event.findById({ _id: id, owner: req.user._id })
     .then(handle404)
     .then(event => res.status(200).json({ event: event.toObject() }))
     .catch(next)
@@ -59,7 +62,8 @@ router.post('/events', requireToken, removeBlanks, (req, res, next) => {
 // PATCH /events/:id
 router.patch('/events/:id', requireToken, removeBlanks, (req, res, next) => {
   delete req.body.event.owner
-  Event.findById(req.params.id)
+  const id = req.params.id
+  Event.findOne({ _id: id, owner: req.user._id })
     .then(console.log('This is the parameter', req.params.id))
     .then(handle404)
     .then(event => {
@@ -73,7 +77,8 @@ router.patch('/events/:id', requireToken, removeBlanks, (req, res, next) => {
 // DESTROY
 // DELETE /events/:id
 router.delete('/events/:id', requireToken, (req, res, next) => {
-  Event.findById(req.params.id)
+  const id = req.params.id
+  Event.findOne({ _id: id, owner: req.user._id })
     .then(handle404)
     .then(event => {
       requireOwnership(req, event)

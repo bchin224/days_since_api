@@ -1,4 +1,5 @@
 #!/bin/bash
+#!API="https://nameless-crag-47108.herokuapp.com/"
 
 API="http://localhost:4741"
 URL_PATH="/sign-up"

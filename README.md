@@ -4,6 +4,11 @@
     - Build all CRUD action curl scripts
     - Build all CRUD action routes
 
+1/7 - Set up herokuapp
+    - Deployed API
+
+1/8 - Adjusted show, update and delete routes to be owner specific
+
 ### Entity Relationship Diagram
 ```md
 ![Days Since App Entity Relationship Diagram]
