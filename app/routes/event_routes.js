@@ -39,9 +39,9 @@ router.get('/events', requireToken, (req, res, next) => {
 
 // SHOW
 // GET /events/:id
-router.get('events/:id', requireToken, removeBlanks, (req, res, next) => {
+router.get('/events/:id', requireToken, removeBlanks, (req, res, next) => {
   const id = req.params.id
-  Event.findById({ _id: id, owner: req.user._id })
+  Event.findOne({ _id: id, owner: req.user._id })
     .then(handle404)
     .then(event => res.status(200).json({ event: event.toObject() }))
     .catch(next)
