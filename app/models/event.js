@@ -18,7 +18,9 @@ const eventSchema = new mongoose.Schema({
     required: true
   }
 }, {
-  timestamps: true
+  timestamps: true,
+  toObject: { virtuals: true },
+  toJSON: { virtuals: true }
 })
 
 // function to calculate elapsed days between event and today

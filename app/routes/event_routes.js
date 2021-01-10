@@ -28,7 +28,7 @@ const router = express.Router()
 // GET /events
 router.get('/events', requireToken, (req, res, next) => {
   const ownerId = req.user._id
-  console.log(ownerId)
+  // console.log(ownerId)
   Event.find({ owner: ownerId })
     .then(events => {
       return events.map(event => event.toObject())
