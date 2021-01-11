@@ -9,6 +9,8 @@
 
 1/8 - Adjusted show, update and delete routes to be owner specific
 
+1/10 - Adjusted virtual to pull date from schema
+
 ### Entity Relationship Diagram
 ```md
 ![Days Since App Entity Relationship Diagram]
