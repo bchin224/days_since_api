@@ -29,25 +29,30 @@ eventSchema.virtual('daysSince').get(function () {
   let thisMonth = new Date().getMonth()
   let thisDay = new Date().getDate()
   let thisYear = new Date().getFullYear()
-  // Currently past elements are not pulling from data---------
+  // this.date pulls info from schema
   let pastMonth = new Date(this.date).getMonth()
   let pastDay = new Date(this.date).getDate()
   let pastYear = new Date(this.date).getFullYear()
+  // current month calculation sets all months = 30 days
   if (pastMonth >= thisMonth && thisYear !== pastYear) {
-    dayCounter += ((12 - (pastMonth - thisMonth)) * 30) + 5
+    dayCounter += ((12 - (pastMonth - thisMonth)) * 30)
   } else if (pastMonth < thisMonth) {
-    dayCounter += ((thisMonth - pastMonth) * 30) + 5
+    dayCounter += ((thisMonth - pastMonth) * 30)
   }
   if (pastDay >= thisDay) {
     dayCounter += (pastDay - thisDay)
   } else if (pastDay < thisDay) {
     dayCounter += (thisDay - pastDay)
   }
-  const yearCalc = ((thisYear - pastYear) * 365) - 365
+  const yearDiff = thisYear - pastYear
+  const yearCalc = ((yearDiff) * 365) - 365
   if (yearCalc >= 0) {
     dayCounter += yearCalc
   }
-  // return dayCounter
+  // account for leap years
+  if (yearDiff >= 4) {
+    dayCounter += ((yearDiff) / 4)
+  }
   return dayCounter
 })
 
