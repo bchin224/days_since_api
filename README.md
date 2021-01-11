@@ -14,7 +14,8 @@
      - Removed unneccesary comments
 
 ### Entity Relationship Diagram
-![Days Since App Entity Relationship Diagram](https://imgur.com/HticGrG)
+![Days Since App Entity Relationship Diagram]
+https://imgur.com/HticGrG
 
 ### Technologies Used
 Express
