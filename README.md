@@ -1,3 +1,9 @@
+### Days Since API
+The Days Since API supports the Days Since application linked below by providing the models for users and resources as well as server routes so that information can be stored on a MongoDB database. The main functionality of the app is also in this API which allows for date calculation and comparrison.
+Days Since Client Repository: https://github.com/bchin224/days_since_client
+API Live Server: https://nameless-crag-47108.herokuapp.com/
+Live Application: https://bchin224.github.io/days_since_client/
+
 ### Planning Story
 1/6 - Set up github repository
     - Renamed database name to days-since-database
